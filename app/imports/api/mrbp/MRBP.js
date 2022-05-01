@@ -3,7 +3,7 @@ import { Stuffs } from '../stuff/StuffCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { UserProfiles } from '../user/UserProfileCollection';
 
-class MATRPClass {
+class MRBPClass {
   collections;
 
   collectionLoadSequence;
@@ -52,4 +52,4 @@ class MATRPClass {
   }
 }
 
-export const MRBP = new MATRPClass();
+export const MRBP = new MRBPClass();
