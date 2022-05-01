@@ -1,13 +1,13 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import { useTracker } from 'meteor/react-meteor-data';
-import { Stuffs } from '../../api/stuff/Stuff';
+import { Stuffs } from '../../api/stuff/StuffCollection';
 import StuffItem from '../components/StuffItem';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 /* Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 const ListStuff = () => {
@@ -16,18 +16,18 @@ const ListStuff = () => {
     // Note that this subscription will get cleaned up
     // when your component is unmounted or deps change.
     // Get access to Stuff documents.
-    const subscription = Meteor.subscribe(Stuffs.userPublicationName);
+    const subscription = Stuffs.subscribeStuff();
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the Stuff documents
-    const stuffItems = Stuffs.collection.find({}).fetch();
+    const stuffItems = Stuffs.find({}, { sort: { name: 1 } }).fetch();
     return {
       stuffs: stuffItems,
       ready: rdy,
     };
   }, []);
   return (ready ? (
-    <Container>
+    <Container id={PAGE_IDS.LIST_STUFF}>
       <Row className="justify-content-center">
         <Col md={7}>
           <Col className="text-center">
