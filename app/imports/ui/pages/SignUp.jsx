@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import { Accounts } from 'meteor/accounts-base';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -11,6 +10,9 @@ import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { UserProfiles } from '../../api/user/UserProfileCollection';
+import { defineMethod } from '../../api/base/BaseCollection.methods';
 
 /**
  * SignUp component is similar to signin component, but we create a new user instead.
@@ -20,6 +22,8 @@ const SignUp = ({ location }) => {
   const [redirectToReferer, setRedirectToRef] = useState(false);
 
   const schema = new SimpleSchema({
+    firstName: String,
+    lastName: String,
     email: String,
     password: String,
   });
@@ -27,15 +31,14 @@ const SignUp = ({ location }) => {
 
   /* Handle SignUp submission. Create user account and a profile entry, then redirect to the home page. */
   const submit = (doc) => {
-    const { email, password } = doc;
-    Accounts.createUser({ email, username: email, password }, (err) => {
-      if (err) {
-        setError(err.reason);
-      } else {
+    const collectionName = UserProfiles.getCollectionName();
+    const definitionData = doc;
+    defineMethod.callPromise({ collectionName, definitionData })
+      .then(() => {
         setError('');
         setRedirectToRef(true);
-      }
-    });
+      })
+      .catch((err) => setError(err.reason));
   };
 
   /* Display the signup form. Redirect to add page after successful registration and login. */
@@ -54,10 +57,12 @@ const SignUp = ({ location }) => {
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
               <Card.Body>
-                <TextField name="email" placeholder="E-mail address"/>
-                <TextField name="password" placeholder="Password" type="password"/>
+                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_FIRST_NAME} name="firstName" placeholder="First name"/>
+                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_LAST_NAME} name="lastName" placeholder="Last name"/>
+                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL} name="email" placeholder="E-mail address"/>
+                <TextField id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD} name="password" placeholder="Password" type="password"/>
                 <ErrorsField/>
-                <SubmitField/>
+                <SubmitField id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT}/>
               </Card.Body>
             </Card>
           </AutoForm>

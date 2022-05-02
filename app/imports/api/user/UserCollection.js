@@ -55,7 +55,7 @@ class UserCollection {
       // In test Meteor.settings is not set from settings.development.json so we use _.get to see if it is set.
       const credential = password || this._generateCredential();
       if (_.get(Meteor, 'settings.public.development', false)) {
-        const userID = Accounts.createUser({ username: username, email: username, password: credential });
+        const userID = Accounts.createUser({ username, email: username, password: credential });
         Roles.addUsersToRoles(userID, [role]);
         console.log(`Defining ${role} ${username} with password ${credential}`);
         return userID;

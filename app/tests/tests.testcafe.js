@@ -1,8 +1,10 @@
 import { Selector, t } from 'testcafe';
+import { addStuffPage, listStuffAdminPage, listStuffPage, editStuffPage, manageDatabasePage, signOutPage } from './simple.page';
 import { landingPage } from './landing.page';
-import { signinPage } from './signin.page';
-import { signoutPage } from './signout.page';
+import { signInPage } from './signin.page';
+import { signUpPage } from './signup.page';
 import { navBar } from './navbar.component';
+import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
 
@@ -18,16 +20,16 @@ test('Test that landing page shows up', async () => {
   await landingPage.isDisplayed();
 });
 
-test('Test that signin and signout work', async (testController) => {
-  await navBar.gotoSignInPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.isLoggedIn(testController, credentials.username);
-  await navBar.logout(testController);
-  await signoutPage.isDisplayed(testController);
+test('Test that signin and signout work', async () => {
+  await navBar.gotoSignInPage();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.logout();
+  await signOutPage.isDisplayed();
 });
 
 test('Test that user pages show up', async () => {
-  await navBar.gotoSigninPage();
+  await navBar.gotoSignInPage();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoAddStuffPage();
@@ -42,8 +44,17 @@ test('Test that user pages show up', async () => {
   await signOutPage.isDisplayed();
 });
 
+test('Test that sign up and sign out work', async () => {
+  await navBar.gotoSignUpPage();
+  await signUpPage.signupUser(newCredentials.username, newCredentials.password);
+  await signInPage.signin(newCredentials.username, newCredentials.password);
+  await navBar.isLoggedIn(newCredentials.username);
+  await navBar.logout();
+  await signOutPage.isDisplayed();
+});
+
 test('Test that admin pages show up', async () => {
-  await navBar.gotoSigninPage();
+  await navBar.gotoSignInPage();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
   await navBar.isLoggedIn(adminCredentials.username);
   await navBar.gotoAddStuffPage();
@@ -56,7 +67,6 @@ test('Test that admin pages show up', async () => {
   await editStuffPage.isDisplayed();
   await navBar.gotoListStuffAdminPage();
   await listStuffAdminPage.isDisplayed();
-  await navBar.gotoManageDatabasePage();
-  await manageDatabasePage.isDisplayed();
+  // await navBar.gotoManageDatabasePage();
+  // await manageDatabasePage.isDisplayed();
 });
-

@@ -14,7 +14,7 @@ class NavBar {
 
   async gotoSignInPage() {
     await this.ensureLogout(t);
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
@@ -24,7 +24,7 @@ class NavBar {
 
   /* Check that the specified user is currently logged in. */
   async isLoggedIn(username) {
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
@@ -34,7 +34,7 @@ class NavBar {
 
   /* Check that someone is logged in, then click items to logout. */
   async logout() {
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
@@ -46,7 +46,7 @@ class NavBar {
   /* Pull down login menu, go to sign up page. */
   async gotoSignUpPage() {
     await this.ensureLogout(t);
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
@@ -56,7 +56,7 @@ class NavBar {
 
   /* Go to the add stuff page. */
   async gotoAddStuffPage() {
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
@@ -66,7 +66,7 @@ class NavBar {
 
   /* Go to the list stuff page. */
   async gotoListStuffPage() {
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
@@ -76,7 +76,7 @@ class NavBar {
 
   /* Go to the list stuff admin page. */
   async gotoListStuffAdminPage() {
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
@@ -86,7 +86,7 @@ class NavBar {
 
   /* Go to the manage database page. Must be adimin. */
   async gotoManageDatabasePage() {
-    const visible = await Selector('#basic-navbar-nav').visible;
+    const visible = await Selector(`#${COMPONENT_IDS.NAVBAR_COLLAPSE}`).visible;
     if (!visible) {
       await t.click('button.navbar-toggler');
     }
