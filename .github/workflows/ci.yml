@@ -1,4 +1,4 @@
-name: ci-mrbp
+name: ci-meteor-application-template-production
 
 on:
   push:
