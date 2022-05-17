@@ -1,5 +1,5 @@
 {
-  "name": "mrbp",
+  "name": "meteor-application-template-production",
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.17.9",
