@@ -3,7 +3,7 @@ import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { MRBP } from '../mrbp/MRBP';
+import { MATP } from '../matp/MATP';
 import { ROLE } from '../role/Role';
 import { loadCollectionNewDataOnly } from '../utilities/load-fixtures';
 
@@ -20,7 +20,7 @@ export const defineMethod = new ValidatedMethod({
   run({ collectionName, definitionData }) {
     if (Meteor.isServer) {
       // console.log(collectionName, this.userId, definitionData);
-      const collection = MRBP.getCollection(collectionName);
+      const collection = MATP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       return collection.define(definitionData);
     }
@@ -35,7 +35,7 @@ export const updateMethod = new ValidatedMethod({
   run({ collectionName, updateData }) {
     if (Meteor.isServer) {
       // console.log('updateMethod(%o, %o)', collectionName, updateData);
-      const collection = MRBP.getCollection(collectionName);
+      const collection = MATP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       collection.update(updateData.id, updateData);
     }
@@ -48,7 +48,7 @@ export const removeItMethod = new ValidatedMethod({
   validate: null,
   run({ collectionName, instance }) {
     if (Meteor.isServer) {
-      const collection = MRBP.getCollection(collectionName);
+      const collection = MATP.getCollection(collectionName);
       collection.assertValidRoleForMethod(this.userId);
       return collection.removeIt(instance);
     }
@@ -69,7 +69,7 @@ export const dumpDatabaseMethod = new ValidatedMethod({
     // Don't do the dump except on server side (disable client-side simulation).
     // Return an object with fields timestamp and collections.
     if (Meteor.isServer) {
-      const collections = _.sortBy(MRBP.collectionLoadSequence.map((collection) => collection.dumpAll()),
+      const collections = _.sortBy(MATP.collectionLoadSequence.map((collection) => collection.dumpAll()),
         (entry) => entry.name);
       const timestamp = new Date();
       return { timestamp, collections };
@@ -92,7 +92,7 @@ export const loadFixtureMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       let ret = '';
       // console.log(RadGrad.collectionLoadSequence);
-      MRBP.collectionLoadSequence.forEach((collection) => {
+      MATP.collectionLoadSequence.forEach((collection) => {
         const result = loadCollectionNewDataOnly(collection, fixtureData, true);
         // console.log(collection.getCollectionName(), result);
         if (result) {

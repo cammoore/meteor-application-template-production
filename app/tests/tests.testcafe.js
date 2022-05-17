@@ -13,7 +13,7 @@ const credentials = { username: 'john@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
 const newCredentials = { username: 'jane@foo.com', password: 'changeme' };
 
-fixture('mrbp localhost test with default db')
+fixture('meteor-application-template-production localhost test with default db')
   .page('http://localhost:3000');
 
 test('Test that landing page shows up', async () => {

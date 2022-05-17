@@ -3,7 +3,7 @@ import { Stuffs } from '../stuff/StuffCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { UserProfiles } from '../user/UserProfileCollection';
 
-class MRBPClass {
+class MATPClass {
   collections;
 
   collectionLoadSequence;
@@ -11,7 +11,7 @@ class MRBPClass {
   collectionAssociation;
 
   constructor() {
-    // list of all the MRBP collections
+    // list of all the MATP collections
     this.collections = [
       AdminProfiles,
       Stuffs,
@@ -43,7 +43,7 @@ class MRBPClass {
    * @throws { Meteor.Error } If collectionName does not name a collection.
    */
   getCollection(collectionName) {
-    // console.log('MRBP', collectionName, this.collectionAssociation);
+    // console.log('MATP', collectionName, this.collectionAssociation);
     const collection = this.collectionAssociation[collectionName];
     if (!collection) {
       throw new Meteor.Error(`Called MARTP.getCollection with unknown collection name: ${collectionName}`);
@@ -52,4 +52,4 @@ class MRBPClass {
   }
 }
 
-export const MRBP = new MRBPClass();
+export const MATP = new MATPClass();

@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { MRBP } from '../mrbp/MRBP';
+import { MATP } from '../matp/MATP';
 
 export const removeAllEntities = () => {
   if (Meteor.isTest || Meteor.isAppTest) {
-    MRBP.collections.forEach(collection => {
+    MATP.collections.forEach(collection => {
       collection._collection.remove({});
     });
   } else {
