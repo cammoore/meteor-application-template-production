@@ -47,7 +47,7 @@ const ListStuff = () => {
             </tbody>
           </Table></Col>
       </Row>
-    </Container>) : <LoadingSpinner/>);
+    </Container>) : <LoadingSpinner message="Loading Stuff"/>);
 };
 
 export default ListStuff;

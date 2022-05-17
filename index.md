@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/ics-software-engineering/meteor-application-template-react/master/doc/landing-page.png)
 
-Meteor-application-template-react is a sample Meteor 2.6 application that illustrates:
+Meteor-application-template-production is a sample Meteor 2.7.1 application that illustrates:
 
   * A standard directory layout using 'imports/' as recommended in the [Meteor Guide](https://guide.meteor.com/structure.html)
   * [Semantic UI React](https://react.semantic-ui.com/) for user interface.
@@ -47,57 +47,50 @@ The first time you run the app, it will create some default users and data. Here
 ```
 meteor npm run start
 
-> meteor-application-template-react@ start /Users/philipjohnson/github/ics-software-engineering/meteor-application-template-react/app
-> meteor --no-release-check --settings ../config/settings.development.json
 
-[[[[[ ~/github/ics-software-engineering/meteor-application-template-react/app ]]]]]
+> mrbp@ start /Users/carletonmoore/GitHub/ICS314/mrbp/app
+> npm-run-all css start-meteor
 
-=> Started proxy.
-=> Started MongoDB.
-I20180227-13:33:02.716(-10)? Creating the default user(s)
-I20180227-13:33:02.742(-10)?   Creating user admin@foo.com.
-I20180227-13:33:02.743(-10)?   Creating user john@foo.com.
-I20180227-13:33:02.743(-10)? Creating default data.
-I20180227-13:33:02.743(-10)?   Adding: Basket (john@foo.com)
-I20180227-13:33:02.743(-10)?   Adding: Bicycle (john@foo.com)
-I20180227-13:33:02.743(-10)?   Adding: Banana (admin@foo.com)
-I20180227-13:33:02.744(-10)?   Adding: Boogie Board (admin@foo.com)
+
+> mrbp@ css /Users/carletonmoore/GitHub/ICS314/mrbp/app
+> npm-run-all css-compile css-prefix
+
+
+> mrbp@ css-compile /Users/carletonmoore/GitHub/ICS314/mrbp/app
+> node-sass --include-path node_modules --output-style compressed --source-map true --source-map-contents true --precision 6 scss -o imports/startup/client/css/
+
+Rendering Complete, saving .css file...
+Wrote Source Map to /Users/carletonmoore/GitHub/ICS314/mrbp/app/imports/startup/client/css/theme.css.map
+Wrote CSS to /Users/carletonmoore/GitHub/ICS314/mrbp/app/imports/startup/client/css/theme.css
+Wrote 1 CSS files to /Users/carletonmoore/GitHub/ICS314/mrbp/app/imports/startup/client/css/
+
+> mrbp@ css-prefix /Users/carletonmoore/GitHub/ICS314/mrbp/app
+> postcss imports/startup/client/css/theme.css --replace --use autoprefixer --map
+
+
+> mrbp@ start-meteor /Users/carletonmoore/GitHub/ICS314/mrbp/app
+> meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json
+
+[[[[[ ~/GitHub/ICS314/mrbp/app ]]]]]          
+
+=> Started proxy.                             
+=> Started HMR server.                        
+=> Started MongoDB.                           
+I20220517-11:01:35.531(-10)? Creating the default user(s)
+I20220517-11:01:35.538(-10)?   Creating user admin@foo.com with role ADMIN.
+I20220517-11:01:35.700(-10)? Defining ADMIN admin@foo.com with password changeme
+I20220517-11:01:35.701(-10)?   Creating user john@foo.com with role USER.
+I20220517-11:01:35.766(-10)? Defining USER john@foo.com with password changeme
+I20220517-11:01:35.870(-10)? Creating default data.
+I20220517-11:01:35.870(-10)?   Adding: Basket (john@foo.com)
+I20220517-11:01:35.971(-10)?   Adding: Bicycle (john@foo.com)
+I20220517-11:01:35.973(-10)?   Adding: Banana (admin@foo.com)
+I20220517-11:01:35.975(-10)?   Adding: Boogie Board (admin@foo.com)
+I20220517-11:01:36.162(-10)? Monti APM: completed instrumenting the app
 => Started your app.
 
 => App running at: http://localhost:3000/
 ```
-
-
-### Note regarding "bcrypt warning":
-
-You might also get the following message when you run this application:
-
-```
-Note: you are using a pure-JavaScript implementation of bcrypt.
-While this implementation will work correctly, it is known to be
-approximately three times slower than the native implementation.
-In order to use the native implementation instead, run
-
-  meteor npm install --save bcrypt
-
-in the root directory of your application.
-```
-
-On some operating systems (particularly Windows), installing bcrypt is much more difficult than implied by the above message. Bcrypt is only used in Meteor for password checking, so the performance implications are negligible until your site has very high traffic. You can safely ignore this warning without any problems during initial stages of development.
-
-### Note regarding "MongoError: not master and slaveOk=false":
-
-Intermittently, you may see the following error message in the console when the system starts up:
-
-```
-MongoError: not master and slaveOk=false
-     at queryCallback (/Users/philipjohnson/.meteor/packages/npm-mongo/.3.1.1.1mmptof.qcqo++os+web.browser+web.browser.legacy+web.cordova/npm/node_modules/mongodb-core/lib/cursor.js:248:25)
-     at /Users/philipjohnson/.meteor/packages/npm-mongo/.3.1.1.1mmptof.qcqo++os+web.browser+web.browser.legacy+web.cordova/npm/node_modules/mongodb-core/lib/connection/pool.js:532:18
-     at _combinedTickCallback (internal/process/next_tick.js:131:7)
-     at process._tickDomainCallback (internal/process/next_tick.js:218:9)
-```
-
-While irritating, this message appears to be harmless and [possibly related to a race condition between the development instance of Mongo and Meteor](https://github.com/meteor/meteor/issues/9026#issuecomment-330850366). By harmless, I mean that in most cases, the console goes on to display `App running at: http://localhost:3000/` and no problems occur during run time.
 
 ### Viewing the running app
 
