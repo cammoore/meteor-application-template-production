@@ -1,9 +1,6 @@
 import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
+import { Col, Container, Row, Table } from 'react-bootstrap';
 import { Stuffs } from '../../api/stuff/StuffCollection';
 import StuffItemAdmin from '../components/StuffItemAdmin';
 import LoadingSpinner from '../components/LoadingSpinner';
