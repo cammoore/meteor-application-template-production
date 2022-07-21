@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/ics-software-engineering/meteor-application-template-production/main/doc/landing-page.png)
 
-Meteor-application-template-production is a sample Meteor 2.7.1 application that illustrates:
+Meteor-application-template-production is a sample Meteor 2.7.3 application that illustrates:
 
   * A standard directory layout using 'imports/' as recommended in the [Meteor Guide](https://guide.meteor.com/structure.html)
   * [React Bootstrap](https://react-bootstrap.github.io/) for user interface.
